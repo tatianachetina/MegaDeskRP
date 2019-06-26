@@ -8,7 +8,6 @@ namespace MegaDeskRP.Models
 {
     public class Desk
     {
-
         public int DeskId { get; set; }
 
         [Range(24, 96)]
