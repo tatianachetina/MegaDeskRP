@@ -4,15 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MegaDeskRP.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "SurfaceMaterialId1",
-                table: "Desk",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "RushOrder",
                 columns: table => new
@@ -36,11 +31,33 @@ namespace MegaDeskRP.Migrations
                     SurfaceMaterialId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     MaterialType = table.Column<string>(nullable: true),
-                    MaterialPrice = table.Column<int>(nullable: false)
+                    MaterialPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SurfaceMaterial", x => x.SurfaceMaterialId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Desk",
+                columns: table => new
+                {
+                    DeskId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Width = table.Column<int>(nullable: false),
+                    Depth = table.Column<int>(nullable: false),
+                    NumberOfDrawers = table.Column<int>(nullable: false),
+                    SurfaceMaterialId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Desk", x => x.DeskId);
+                    table.ForeignKey(
+                        name: "FK_Desk_SurfaceMaterial_SurfaceMaterialId",
+                        column: x => x.SurfaceMaterialId,
+                        principalTable: "SurfaceMaterial",
+                        principalColumn: "SurfaceMaterialId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,9 +90,9 @@ namespace MegaDeskRP.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Desk_SurfaceMaterialId1",
+                name: "IX_Desk_SurfaceMaterialId",
                 table: "Desk",
-                column: "SurfaceMaterialId1");
+                column: "SurfaceMaterialId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeskQuote_DeskId",
@@ -86,38 +103,21 @@ namespace MegaDeskRP.Migrations
                 name: "IX_DeskQuote_RushOrderId",
                 table: "DeskQuote",
                 column: "RushOrderId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Desk_SurfaceMaterial_SurfaceMaterialId1",
-                table: "Desk",
-                column: "SurfaceMaterialId1",
-                principalTable: "SurfaceMaterial",
-                principalColumn: "SurfaceMaterialId",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Desk_SurfaceMaterial_SurfaceMaterialId1",
-                table: "Desk");
-
             migrationBuilder.DropTable(
                 name: "DeskQuote");
 
             migrationBuilder.DropTable(
-                name: "SurfaceMaterial");
+                name: "Desk");
 
             migrationBuilder.DropTable(
                 name: "RushOrder");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Desk_SurfaceMaterialId1",
-                table: "Desk");
-
-            migrationBuilder.DropColumn(
-                name: "SurfaceMaterialId1",
-                table: "Desk");
+            migrationBuilder.DropTable(
+                name: "SurfaceMaterial");
         }
     }
 }

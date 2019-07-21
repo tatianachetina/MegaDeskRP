@@ -11,6 +11,6 @@ namespace MegaDeskRP.Models
 
         public string MaterialType { get; set; }
 
-        public int MaterialPrice { get; set; }
+        public decimal MaterialPrice { get; set; }
     }
 }

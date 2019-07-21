@@ -19,11 +19,20 @@ namespace MegaDeskRP.Pages.Quotes
         }
 
         public IList<DeskQuote> DeskQuote { get;set; }
+        public string SearchString { get; private set; }
 
         public async Task OnGetAsync()
         {
-            DeskQuote = await _context.DeskQuote
-                .Include(d => d.Desk).ToListAsync();
+            var quotes = from m in _context.DeskQuote
+                         select m;
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                quotes = quotes.Where(s => s.CustomerName.Contains(SearchString));
+            }
+
+            DeskQuote = await quotes.ToListAsync();
+            //DeskQuote = await _context.DeskQuote
+            //.Include(d => d.Desk).ToListAsync();
         }
     }
 }

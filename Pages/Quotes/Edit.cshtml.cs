@@ -21,6 +21,9 @@ namespace MegaDeskRP.Pages.Quotes
 
         [BindProperty]
         public DeskQuote DeskQuote { get; set; }
+        public Desk Desk { get; set; }
+        public SelectList ShippingTypeList { get; set; }
+        public SelectList MaterialTypeList { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,15 +31,31 @@ namespace MegaDeskRP.Pages.Quotes
             {
                 return NotFound();
             }
-
             DeskQuote = await _context.DeskQuote
-                .Include(d => d.Desk).FirstOrDefaultAsync(m => m.DeskQuoteId == id);
+               .Include(d => d.Desk).FirstOrDefaultAsync(m => m.DeskQuoteId == id);
 
             if (DeskQuote == null)
             {
                 return NotFound();
             }
-           ViewData["DeskId"] = new SelectList(_context.Desk, "DeskId", "DeskId");
+
+            var shippingQuery = from d in _context.RushOrder
+                                orderby d.RushOrderId
+                                select d;
+
+            ShippingTypeList = new SelectList(shippingQuery.AsNoTracking(),
+            "RushOrderId", "ShippingType");
+
+            var materialQuery = from d in _context.SurfaceMaterial
+                                orderby d.SurfaceMaterialId
+                                select d;
+
+            MaterialTypeList = new SelectList(materialQuery.AsNoTracking(),
+            "SurfaceMaterialId", "MaterialType");
+
+            //ViewData["DeskId"] = new SelectList(_context.Desk, "DeskId", "SurfaceMaterialId");
+            //return Page();
+            ViewData["DeskId"] = new SelectList(_context.Set<Desk>(), "DeskId", "DeskId");
             return Page();
         }
 
@@ -50,12 +69,14 @@ namespace MegaDeskRP.Pages.Quotes
             _context.Attach(DeskQuote).State = EntityState.Modified;
 
             try
-            {
+            {   
+                
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!DeskQuoteExists(DeskQuote.DeskQuoteId))
+
                 {
                     return NotFound();
                 }
@@ -70,7 +91,7 @@ namespace MegaDeskRP.Pages.Quotes
 
         private bool DeskQuoteExists(int id)
         {
-            return _context.DeskQuote.Any(e => e.DeskQuoteId == id);
+           return _context.DeskQuote.Any(e => e.DeskQuoteId == id);
         }
     }
-}
+    }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MegaDeskRP.Migrations
 {
     [DbContext(typeof(MegaDeskRPContext))]
-    [Migration("20190622045910_Initial")]
-    partial class Initial
+    [Migration("20190626230127_initialcreate")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,15 +31,13 @@ namespace MegaDeskRP.Migrations
 
                     b.Property<int>("NumberOfDrawers");
 
-                    b.Property<string>("SurfaceMaterialId");
-
-                    b.Property<int?>("SurfaceMaterialId1");
+                    b.Property<int>("SurfaceMaterialId");
 
                     b.Property<int>("Width");
 
                     b.HasKey("DeskId");
 
-                    b.HasIndex("SurfaceMaterialId1");
+                    b.HasIndex("SurfaceMaterialId");
 
                     b.ToTable("Desk");
                 });
@@ -97,7 +95,7 @@ namespace MegaDeskRP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MaterialPrice");
+                    b.Property<decimal>("MaterialPrice");
 
                     b.Property<string>("MaterialType");
 
@@ -110,7 +108,8 @@ namespace MegaDeskRP.Migrations
                 {
                     b.HasOne("MegaDeskRP.Models.SurfaceMaterial", "SurfaceMaterial")
                         .WithMany()
-                        .HasForeignKey("SurfaceMaterialId1");
+                        .HasForeignKey("SurfaceMaterialId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MegaDeskRP.Models.DeskQuote", b =>

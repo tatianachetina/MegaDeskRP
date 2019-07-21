@@ -17,5 +17,8 @@ namespace MegaDeskRP.Models
         public DbSet<MegaDeskRP.Models.Desk> Desk { get; set; }
 
         public DbSet<MegaDeskRP.Models.DeskQuote> DeskQuote { get; set; }
+        public DbSet<MegaDeskRP.Models.SurfaceMaterial> SurfaceMaterial { get; set; }
+
+        public DbSet<MegaDeskRP.Models.RushOrder> RushOrder { get; set; }
     }
 }

@@ -8,6 +8,8 @@ namespace MegaDeskRP.Models
 {
     public class Desk
     {
+
+       
         public int DeskId { get; set; }
 
         [Range(24, 96)]
@@ -24,8 +26,11 @@ namespace MegaDeskRP.Models
         public int NumberOfDrawers { get; set; }
 
         [Display(Name = "Surface Material")]
-        public string SurfaceMaterialId { get; set; }
+        public int SurfaceMaterialId { get; set; }
+
         public SurfaceMaterial SurfaceMaterial { get; set; }
+
+        
 
     }
 }

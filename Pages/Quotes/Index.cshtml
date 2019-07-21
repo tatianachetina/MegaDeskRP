@@ -10,17 +10,25 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form>
+    <p>
+        Title: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DeskQuote[0].Desk)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.DeskQuote[0].CustomerName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeskQuote[0].RushOrderId)
+                @Html.DisplayNameFor(model => model.DeskQuote[0].RushOrder)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DeskQuote[0].QuotePrice)
@@ -32,29 +40,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.DeskQuote) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Desk.DeskId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RushOrderId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuotePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuoteDate)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.DeskQuoteId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.DeskQuoteId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.DeskQuoteId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.DeskQuote)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RushOrder.ShippingType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuotePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuoteDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.DeskQuoteId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.DeskQuoteId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.DeskQuoteId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

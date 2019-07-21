@@ -45,6 +45,14 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+h1 {
+    font-family: 'Bungee Outline', cursive;
+}
+
+h2 {
+    font-family: 'Anton', sans-serif;
+}
 .footer {
   position: absolute;
   bottom: 0;

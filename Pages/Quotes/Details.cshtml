@@ -11,12 +11,7 @@
     <h4>DeskQuote</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DeskQuote.Desk)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DeskQuote.Desk.DeskId)
-        </dd>
+        
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DeskQuote.CustomerName)
         </dt>
@@ -24,10 +19,34 @@
             @Html.DisplayFor(model => model.DeskQuote.CustomerName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DeskQuote.RushOrderId)
+            @Html.DisplayNameFor(model => model.DeskQuote.Desk.Depth)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DeskQuote.RushOrderId)
+            @Html.DisplayFor(model => model.DeskQuote.Desk.Depth)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeskQuote.Desk.Width)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeskQuote.Desk.Width)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeskQuote.Desk.SurfaceMaterial.MaterialType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeskQuote.Desk.SurfaceMaterial.MaterialType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeskQuote.Desk.NumberOfDrawers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeskQuote.Desk.NumberOfDrawers)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeskQuote.RushOrder.ShippingType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeskQuote.RushOrder.ShippingType)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DeskQuote.QuotePrice)
